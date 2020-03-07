@@ -27,8 +27,8 @@ class Musics {
                 id: 1,
                 title: 'ナノナキシラベ',
                 singer: '花江夏樹 内田彩',
-                songUrl: '/music/song/ナノナキシラベ_花江夏樹,内田彩.mp3',
-                imageUrl: '/music/img/ナノナキシラベ.jpg'
+                songUrl: '/music/song/1.mp3',
+                imageUrl: '/music/img/1.jpg'
             }
         ]
     }
