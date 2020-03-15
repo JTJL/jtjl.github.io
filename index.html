@@ -257,14 +257,13 @@
                     
                 </h3>
                 <div class="post-content-preview">
-                    最开始是编辑的吐槽作者在投稿后发现原来 markdown 的排版很不适合这种文风，就用她熟练的 push 前端工程师的技巧强迫编辑在半夜魔改 CSS。
-但总而言之，至少又有一个新的栏目开起来了，希望能保持周更或者双周更吧，至少坚持到 sfgg 不会饿死为止。
-撒花！
+                    最开始是来自编辑的小声吐槽作者在投稿后发现原来 markdown 的排版很不适合这种文风，就用她熟练的 push 前端工程师的技巧强迫编辑在半夜魔改 CSS。
+但至少是又有一个新的栏目开起来了，希望能保持周更或者双周更吧，并坚持到 sfgg 不会饿死为止。
 下面是原文 -&gt; 
 初次见面这里是 Miu，建完人物先打一波 Tag：
 
 专业废柴：以 NEET 为人生目标
-职业画师：......
+职业画师：累计收入 ......
                 </div>
             </a>
             
@@ -776,6 +775,22 @@
     
         <script src="/js/ribbonDynamic.js"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 
 </html>
