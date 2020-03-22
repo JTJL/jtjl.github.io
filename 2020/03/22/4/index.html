@@ -16,11 +16,11 @@
     <!--<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
     <title>
         
-          Nanohanasou 队内训练的一部分题解（持续更新） - U.M.R Blog
+          「Random 料理实验室」栗子鸡 - U.M.R Blog
         
     </title>
 
-    <link rel="canonical" href="https://jtjl.github.io/2020/03/07/2/">
+    <link rel="canonical" href="https://jtjl.github.io/2020/03/22/4/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -30,7 +30,7 @@
     <!-- Custom CSS --> 
     
         
-<link rel="stylesheet" href="/css/dusign-light.css">
+<link rel="stylesheet" href="/css/dusign-light-miu.css">
 
         
 <link rel="stylesheet" href="/css/dusign-common-light.css">
@@ -108,18 +108,16 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#competitive-programming" title="competitive-programming">competitive-programming</a>
+                              <a class="tag" href="/tags/#Random 料理实验室" title="Random 料理实验室">Random 料理实验室</a>
                             
-                              <a class="tag" href="/tags/#Nanohanasou" title="Nanohanasou">Nanohanasou</a>
-                            
-                              <a class="tag" href="/tags/#codeforces" title="codeforces">codeforces</a>
+                              <a class="tag" href="/tags/#Miu" title="Miu">Miu</a>
                             
                         </div>
-                        <h1>Nanohanasou 队内训练的一部分题解（持续更新）</h1>
+                        <h1>「Random 料理实验室」栗子鸡</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by U.M.R on
-                            2020-03-07
+                            2020-03-22
                         </span>
 
                         
@@ -260,37 +258,139 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="开头碎碎念"><a href="#开头碎碎念" class="headerlink" title="开头碎碎念"></a>开头碎碎念</h1><p>春节的时候大家因为放假了比较闲，就策划了一个康复训练计划，目标是年底大家 cf 上都能成为 IGM。虽然观望了一下最近的 cf，感觉只要能比较快的把傻逼题都写出来好像就足够上 IGM 了，如果足够幸运遇到 combine 场就更容易一些。但考虑到我和 sfiction 在成为社畜之后并没有太多时间来参加比赛，决定还是找一些难度比较合适的题来康复训练。</p>
-<p>于是我糊了个脚本，爬了一下三人过题的并集，同时也爬了一下各个难度区间的题，开始了基于 Random Pick 的缘分康复计划。这个区间从一开始的 [2400, 2600] 一路上涨，现在右端点已经到 2900 了，<del>同时大家的过题速度也减缓了</del>，所以下面提到的一些题目可能难度浮动还是有一些的 &gt;&lt; 。</p>
-<h1 id="最新一次更新的内容"><a href="#最新一次更新的内容" class="headerlink" title="最新一次更新的内容"></a>最新一次更新的内容</h1><h2 id="883D"><a href="#883D" class="headerlink" title="883D"></a>883D</h2><p>首先可以想到的是二分答案。</p>
-<p>然后想到的就是贪心check：</p>
-<p><img src="submit_record.png" alt="结果"></p>
-<p>眉头一皱，感觉事情没有这么简单，还是来 dp 吧。</p>
-<p>…</p>
-<h1 id="之前的更新"><a href="#之前的更新" class="headerlink" title="之前的更新"></a>之前的更新</h1><h2 id="1033F"><a href="#1033F" class="headerlink" title="1033F"></a>1033F</h2><p>sf 看完题就说可以轻松 $O(4^w)$ ，可以把每一维按照 0123 排列，每一对数都对应超立方体上一个格子。此时and or xor 这些范围都是连续的，除了 not-xor 需要拆开，所以每次询问其他操作都只对应一个高维长方体，而 not-xor 对应 $2^w$ 个。这是突然发现每个长方体计算也要 $O(2^w)$ 的复杂度，凉凉。</p>
-<p>我基于这个想法又发挥了一下，把 0 复制了一份接在 3 后面，这样整个超立方体变成了 $O(5^w)$ 级别的，但 not-xor 也变成了连续的区间，这样每次询问都只需要 $O(2^w)$ 的复杂度。但这样搞预处理的复杂度就爆炸了。但注意到其实 1 和 2 是完全等价的，所以我们可以去掉一个，这样超立方体又变回了 $O(4^w)$ 级别的。</p>
-<p>我在实现的时候没有注意到每一维的区间大小都是 1 或者 2 这个性质，傻傻的用 $O(w 4^w)$ 预处理了前缀和，然后 $O(m 2^w)$ 来计算询问，跑了 6786ms 才过（时限7s，<del>幸好我常数小</del>）。稍微优化一下应该只需要 $O(n + 4^w + m 2^w)$ 的复杂度。</p>
-<p>看了看题解竟然掏出了一个 FFT 来预处理，可以把预处理复杂度降到 $O(w 3^w)$。</p>
-<h2 id="1129D"><a href="#1129D" class="headerlink" title="1129D"></a>1129D</h2><p>$O(n^2)$ 的 DP 是显然的，我们考虑如何优化转移。</p>
-<p>当我们枚举到第 $i$ 个数时，与 $a_{i-1}$ 结尾的段相比，只有 $a_{i}$ 的出现次数会发生变化。假设 $a_{i}$ 前两次出现的位置分别为 $pre1_{a_{i}}$ 和 $pre2_{a_{i}}$，则对于所有起始位置位于 $(pre2_{a_{i}}, pre1_{a_{i}}]$ 和 $(pre1_{a_{i}}, i]$ 中的段，需要被更新只出现一次的数的个数。</p>
-<p>为了计算答案，对于每个位置，需要维护到当前位置的段内只出现一次的数的个数 $cnt_{i}$，每个位置结尾的 DP 值 $ f_{i} $，这样询问时需要对于所有 $cnt_{i} &lt;= K$ 的位置对 $f_{i}$ 求和。这里如果直接维护 $cnt_{i}$ 则需要一个额外的 $log$ 来计算前缀和，所以我们尝试直接维护前缀和。幸运的是，在进行更新时我们对每个 $cnt_{i}$ 的改变只有 $1$，这样直接维护前缀和的单次复杂度也只有 $O(1)$。</p>
-<p>总体的复杂度是 $O(n \sqrt{n})$</p>
-<h2 id="995E"><a href="#995E" class="headerlink" title="995E"></a>995E</h2><p>这个题刚开始让人摸不着头脑，但看到又是质数又是5s范围又才1e9的，虽然暴力BFS过不了，但感觉瞎搞一下就有救啦。</p>
-<p>主要基于的假设是这个图是几乎随机的。我的做法是从起点和终点各自出发，每次先往左右扩展若干步，然后求逆元，再对这些逆元反复这些操作，直到各自扩展出一定数量的数为止，例如对于 $p = 10^9 + 9$，可以考虑以 $10^7$ 作为界限。这个操作需要的步数大约只需要几十步，再基于图几乎随机的假设，期望能找到一对点他们的距离也小于 $100$，这样就得到了一条 $200$ 以内路径。</p>
-<p>官方题解也有各种千奇百怪的做法，例如可以考虑寻找 $100$ 步内从 $u$ 走到 $1$ 的路径，或者是从 $u$ 和 $v$ 各自产生 $\sqrt{p}$ 条长为 $100$ 的路径求交等。</p>
+                <h2 id="关于这道菜"><a href="#关于这道菜" class="headerlink" title="关于这道菜"></a>关于这道菜</h2><p>小的时候家楼下有家快餐店，是那种菜一盘盘盛好，你一路走过去想要什么拿什么，最后结账的那种。</p>
+<p>我妈值班不回家的时候，我爸几乎都是带我去那里吃饭。</p>
+<p>我最喜欢它家的栗子鸡，5元一份，量不多。</p>
+<p>鸡什么味道我是不记得了，但我特爱吃里面的栗子，甜糯糯的。</p>
+<p>可惜不是每次去都吃的到，大概是江南人都喜欢这种甜糯糯的滋味吧。</p>
+<p>&nbsp;</p>
+<p>其实说起来我这个人挑食的很奇怪，</p>
+<p>普通的生板栗我不吃，在冰箱里放久了脱水变甜的生板栗我爱吃，</p>
+<p>普通的熟板栗我不吃，栗子鸡中甜糯糯的熟板栗我就很爱吃。</p>
+<p>诸如此类，莴苣、番茄等等我都只挑那么一两种做法才吃。</p>
+<p>&nbsp;</p>
+<p>后来我搬家了，便再也没去过了。</p>
+<p>我爸也会在家做饭了，我难得回趟家，就几乎不在外边吃饭了。</p>
+<p>我现在偶尔会想起来小时候很喜欢的一些味道，</p>
+<p>不记得名字的快餐店的栗子鸡，</p>
+<p>不记得名字的游走早餐车的荷叶鸡，</p>
+<p>小学门口无名小店的糍饭团，</p>
+<p>搬家前楼下的沙县的蒸饺、馄饨、蛋炒饭和肉丝面，「别家沙县都不是那个味儿」</p>
+<p>楼下超市门口的臭豆腐……</p>
+<p>都很久没有再吃到过了，但我却到也没有想去吃一次，</p>
+<p>一是隔了十多年这些小店大概都关门了吧，二是隔了十多年的记忆里的美味大多都加上了回忆的滤镜，</p>
+<p>让现在的我再去吃一次，失望的可能性反而会更大一些，不如留在记忆里面做一个美好的回忆。</p>
+<p>&nbsp;</p>
+<p>至于这些食物，找个菜谱，对照着自己回忆中的味道去复刻吧，</p>
+<p>我想这样更能找到如今的我所喜爱的味道。</p>
+<p>&nbsp;</p>
+<p>过年回来阿崽带了一些剥好壳的熟板栗，我冻在冰箱里。</p>
+<p>偶尔会取一些和鸡块一起做成栗子鸡，栗子很甜糯，是我喜欢的那种，崽也喜欢。</p>
+<p>现在已经吃完啦，想来短时间内不再会做栗子鸡了。</p>
+<p>北京的板栗价格抵得上肉，说起来真是想念老家自家的板栗树呢。</p>
+<p>写着写着感觉又要回忆板栗树了，就此打住吧，该写菜谱了。</p>
+<p> <img src="栗子鸡.jpeg" alt="栗子鸡"></p>
+<h2 id="食材清单"><a href="#食材清单" class="headerlink" title="食材清单"></a>食材清单</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>材料</th>
+<th>说明</th>
+<th>用量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>板栗</td>
+<td>生熟都没关系，要去好壳哦</td>
+<td>(0,吃饱)，建议10颗</td>
+</tr>
+<tr>
+<td>鸡肉</td>
+<td>可以是鸡翅根/鸡翅或者大小为[栗子，鸡翅]的鸡块</td>
+<td>(0,吃饱)，建议500g</td>
+</tr>
+<tr>
+<td>生抽</td>
+<td>提供咸鲜味</td>
+<td>适量，建议3瓷勺</td>
+</tr>
+<tr>
+<td>冰糖</td>
+<td>提供甜味以及轻微上色</td>
+<td>[0,适量]，建议1/5瓷勺</td>
+</tr>
+<tr>
+<td>老抽</td>
+<td>上色</td>
+<td>[0,适量]，建议1瓷勺</td>
+</tr>
+<tr>
+<td>蚝油</td>
+<td>提供复合的咸鲜甜味</td>
+<td>[0,适量]，建议1瓷勺</td>
+</tr>
+<tr>
+<td>料酒</td>
+<td>去腥，也可用啤酒代替</td>
+<td>[0,适量]，建议1瓷勺</td>
+</tr>
+<tr>
+<td>姜片</td>
+<td>去腥</td>
+<td>[0,适量]，建议2-3片</td>
+</tr>
+<tr>
+<td>食用油</td>
+<td>鸡肉皮多 &amp;&amp; 用不粘锅可以不放，否则要放</td>
+<td>[0,适量]</td>
+</tr>
+<tr>
+<td>盐</td>
+<td>提供咸味，等汤烧开尝一尝决定要不要加</td>
+<td>[0,适量]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="步骤总结"><a href="#步骤总结" class="headerlink" title="步骤总结"></a>步骤总结</h2><ol>
+<li>煎鸡肉</li>
+<li>加水调味</li>
+<li>加栗子</li>
+<li>小火咕嘟咕嘟炖到喜欢的软烂度</li>
+</ol>
+<h2 id="步骤详解"><a href="#步骤详解" class="headerlink" title="步骤详解"></a>步骤详解</h2><p>鸡肉腥味一般不是很重，特别是鲜鸡，所以一般可以省去焯水这一步骤。</p>
+<p>如果是冷冻鸡解冻后可以泡上3-4小时的清水，中午泡晚上做就正好，能泡掉一些腥味。</p>
+<p>洗洗干净，沥个水，沥水这一步呢，如果用不粘锅不加油的做法来做可以偷懒，别太湿就行，否则一定沥干或者用厨房纸擦擦干，不然先是油爆到你怀疑人生，等噼里啪啦消停后锅里就会是一堆水油混合物在”煮鸡肉了”，别问我怎么知道的。</p>
+<p>带皮的鸡肉的话，用不粘锅，直接皮朝下码好来煎就很不错，鸡皮会煎出鸡油，我煎我自己，成菜也不会过于油腻。</p>
+<p>煎到焦黄就可以放姜片和冰糖，这时候火要调小一些，以免糖糊了发苦。</p>
+<p><img src="煎鸡肉.jpeg" alt="煎鸡肉"></p>
+<p>在加冰糖前呢，人离开锅没事，可以去洗洗别的菜、淘个米之类的，多线程工作节约时间。</p>
+<p>加冰糖后就要勤翻动了，糖会逐渐融化，鸡肉上也会附着上焦糖色。</p>
+<p>然后就可以加水调味了，炒糖单纯是为了好看，偷懒的时候不炒也行，直接加水调味。</p>
+<p>水建议开水，凉水会让肉收紧不容易炖烂，但因为是鸡肉其实没这个烦恼，冷水也行的。</p>
+<p>将生抽老抽料酒蚝油一股脑的下锅，水煮开之后用筷子蘸点汤尝尝味道，淡了就加盐，咸了可以加水或者加土豆块，不够甜就加糖，太甜我也不知道该咋办，回头骗阿崽多吃点。</p>
+<p>栗子也直接丢进去。</p>
+<p><img src="加水调味.jpeg" alt="加水调味"></p>
+<p>然后就是漫长的咕嘟咕嘟了，小火咕嘟就行啦。</p>
+<p>鸡肉很容易熟，板栗生吃也行，看个人喜欢的软烂程度就行，建议40分钟+，鸡更入味，板栗更软糯。</p>
+<p>像我这种偷懒的人，直接丢进了高压锅里，选了肉/鸡模式，就可以跑去玩，直到悦耳的结束提示音啦～</p>
+<p>「我超爱我的高压锅，没广告费不推广，需要入高压锅的可以想办法联系我问。」</p>
+<h2 id="技术总结"><a href="#技术总结" class="headerlink" title="技术总结"></a>技术总结</h2><ol>
+<li>一般来讲鸡块都带皮，找个不粘锅皮朝下煎出鸡油来我煎我自己就挺好。</li>
+<li>调味其实很随意，用调味料调出自己喜欢的咸度、鲜度和甜度就行，不确定就多尝尝汤，汤要偏咸一些鸡肉才好入味。</li>
+<li>不管你是生熟栗子党还是软硬栗子党，非常建议试一试煮的软软糯糯的栗子。</li>
+<li>本菜谱去掉栗子可以变成红烧鸡，栗子更换成其它根茎类蔬菜可以变成土豆烧鸡等等。</li>
+</ol>
 
                 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2020/03/15/3/" data-toggle="tooltip" data-placement="top" title="「Random 料理实验室」青椒炒肉">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2020/03/07/1/" data-toggle="tooltip" data-placement="top" title="写在第一篇的话">Next Post &rarr;</a>
+                        <a href="/2020/03/15/3/" data-toggle="tooltip" data-placement="top" title="「Random 料理实验室」青椒炒肉">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -326,7 +426,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#开头碎碎念"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">开头碎碎念</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#最新一次更新的内容"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">最新一次更新的内容</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#883D"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">883D</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#之前的更新"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">之前的更新</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1033F"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">1033F</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1129D"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">1129D</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#995E"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">995E</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#关于这道菜"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">关于这道菜</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#食材清单"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">食材清单</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#步骤总结"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">步骤总结</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#步骤详解"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">步骤详解</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#技术总结"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">技术总结</span></a></li></ol>
         
         </div>
       </aside>
@@ -346,11 +446,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#competitive-programming" title="competitive-programming">competitive-programming</a>
+                          <a class="tag" href="/tags/#Random 料理实验室" title="Random 料理实验室">Random 料理实验室</a>
                         
-                          <a class="tag" href="/tags/#Nanohanasou" title="Nanohanasou">Nanohanasou</a>
-                        
-                          <a class="tag" href="/tags/#codeforces" title="codeforces">codeforces</a>
+                          <a class="tag" href="/tags/#Miu" title="Miu">Miu</a>
                         
                     </div>
                 </section>
@@ -616,22 +714,6 @@
     
         <script src="/js/ribbonDynamic.js"></script>
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
 </body>
 
 </html>
