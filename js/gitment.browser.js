@@ -3414,7 +3414,7 @@ var Gitment = function () {
       }, options);
 
       this.state.user.isLoggingIn = true;
-      _utils.http.post('https://arisa-test-0.herokuapp.com/https://github.com/login/oauth/access_token', {
+      _utils.http.post('https://arisa-bot.ch-papaw.workers.dev/', {
         code: code,
         client_id: client_id,
         client_secret: client_secret

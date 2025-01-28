@@ -172,13 +172,6 @@
 
   
   <url>
-    <loc>https://jtjl.github.io/categories/%E6%9D%82/</loc>
-    <lastmod>2025-01-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://jtjl.github.io/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/</loc>
     <lastmod>2025-01-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -187,6 +180,13 @@
   
   <url>
     <loc>https://jtjl.github.io/categories/Random-%E6%96%99%E7%90%86%E5%AE%9E%E9%AA%8C%E5%AE%A4/</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://jtjl.github.io/categories/%E6%9D%82/</loc>
     <lastmod>2025-01-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
